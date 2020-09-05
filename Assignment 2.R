@@ -56,6 +56,7 @@ fviz_nbclust(countryS, kmeans, method = "wss") #elbow rule
 fviz_nbclust(countryS, kmeans, method = "silhouette") #silhouette rule
 kmeans.country=kmeans(countryS, 5, nstart=25)
 kmeans.country
+clusters= kmeans.country$cluster
 
 fviz_cluster(kmeans.country, data = countryS) #clusters plot
 
@@ -84,7 +85,7 @@ plot(hc2, cex = 0.6, hang = -1) #dendogram
 hc3 <- hclust(eucl.dist, method = "average" )
 plot(hc3, cex = 0.6, hang = -1) #dendogram
 
-#H-clustering using Average Linkage and Euclidean distance
+#H-clustering using Average Linkage and City-block distance
 hc4 <- hclust(cityblock.dist, method = "average" )
 plot(hc4, cex = 0.6, hang = -1) #dendogram
 
@@ -92,7 +93,7 @@ plot(hc4, cex = 0.6, hang = -1) #dendogram
 hc5 <- hclust(eucl.dist, method = "single" )
 plot(hc5, cex = 0.6, hang = -1) #dendogram
 
-#H-clustering using Single Linkage and Euclidean distance
+#H-clustering using Single Linkage and City-block distance
 hc6 <- hclust(cityblock.dist, method = "single" )
 plot(hc6, cex = 0.6, hang = -1) #dendogram
 
@@ -122,11 +123,12 @@ plot(hc1 ,main =" Complete Linkage - EU ", xlab ="", sub ="",
 rect.hclust(hc1, k = 5, which = 1:5, border = 1:5, cluster = cutree (hc1 , 5))
 
 
+
 table(cutree (hc2 , 5))
 aggregate(country2, by=list(cluster=cutree (hc2 , 5)), mean)
 plot(hc2 ,main =" Complete Linkage - CB ", xlab ="", sub ="",
      cex =.9)
-rect.hclust(hc2, k = 5, which = 1:5, border = 1:5, cluster = cutree (hc1 , 5))
+rect.hclust(hc2, k = 5, which = 1:5, border = 1:5, cluster = cutree (hc2 , 5))
 
 
 table(cutree (hc3 , 5))
